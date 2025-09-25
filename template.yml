@@ -1,0 +1,33 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Simple Hello World with SAM + Node 20 + TS + esbuild
+
+Globals:
+  Function:
+    Runtime: nodejs20.x
+    Handler: app.lambdaHandler
+    Architectures:
+      - x86_64
+    Timeout: 10
+    MemorySize: 128
+
+Resources:
+  HelloFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: .
+      Handler: index.lambdaHandler
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            Path: /hello
+            Method: get
+    Metadata:                   
+      BuildMethod: esbuild
+      BuildProperties:
+        Minify: true
+        Target: es2022
+        Sourcemap: true
+        EntryPoints:
+          - src/index.ts
