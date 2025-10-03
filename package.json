@@ -4,7 +4,7 @@
   "scripts": {
     "build": "sam build",
     "local": "sam local start-api",
-    "deploy": "sam deploy --guided"
+    "deploy": "sam build && sam deploy"
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.138",
